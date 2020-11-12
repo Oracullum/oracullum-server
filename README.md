@@ -1,6 +1,6 @@
 # Oracullum Back-End
 
-## Dependências de instalação: 
+### Dependências de instalação: 
 
 1 -  Para rodar o banco de dados é necessário instalar o Docker Quickstart ou ter o banco de dados postgres instalado na maquina junto com algum sistema de gerenciamento de banco de dados.</br>
 Link da instalação do docker quickstart: https://github.com/docker/toolbox/releases
