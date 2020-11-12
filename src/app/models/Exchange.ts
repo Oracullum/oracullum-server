@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Double, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Double, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Stock from "./Stock";
 
 
@@ -17,7 +17,7 @@ class Exchange{
     precision: 9,
     scale: 2,
   })
-  price: Double;
+  price: number;
     
   @Column()
   quantity: number;
@@ -25,7 +25,8 @@ class Exchange{
   @Column()
   stock_id: string;
 
-  @ManyToOne(() => Stock, stock => stock.exchanges)
+  @ManyToOne(() => Stock)
+  @JoinColumn({ name: 'stock_id' })
   stock: Stock;
 
   @CreateDateColumn()
