@@ -4,35 +4,35 @@ import Stock from "./Stock";
 
 @Entity('exchanges')
 class Exchange{
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column({ type: 'date' })
-    date: Date;
+  @Column({ type: 'date' })
+  date: Date;
 
-    @Column()
-    operation: String;
+  @Column()
+  operation: String;
 
-    @Column('numeric', {
-        precision: 9,
-        scale: 2,
-      })
-    price: Double;
+  @Column('numeric', {
+    precision: 9,
+    scale: 2,
+  })
+  price: Double;
     
-    @Column()
-    quantity: number;
+  @Column()
+  quantity: number;
 
-    @Column()
-    stock_id: string;
+  @Column()
+  stock_id: string;
 
-    @ManyToOne(() => Stock, stock => stock.exchanges)
-    stock: Stock;
+  @ManyToOne(() => Stock, stock => stock.exchanges)
+  stock: Stock;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
 
-    @CreateDateColumn()
-    updated_at: Date;
+  @CreateDateColumn()
+  updated_at: Date;
 }
 
 export default Exchange;
