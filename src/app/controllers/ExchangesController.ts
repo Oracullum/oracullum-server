@@ -10,12 +10,12 @@ class ExchangesController{
         const exchangesRepository = getRepository(Exchange);
         const stockRepository = getRepository(Stock);
 
-        // const verifyIfStockExists = await stockRepository.findOne({
-        //     where: { stock_id }
-        // })
-        // if (!verifyIfStockExists){
-        //     return response.status(403).json("This stock does not exist.")
-        // }
+        const verifyIfStockExists = await stockRepository.findOne({
+            where: { id: stock_id }
+        })
+        if (!verifyIfStockExists){
+            return response.status(403).json("This stock does not exist.")
+        }
         const exchange = await exchangesRepository.create({ date, operation, price, quantity, stock_id })
 
         await exchangesRepository.save(exchange);
@@ -25,11 +25,9 @@ class ExchangesController{
 
     public async index(request: Request, response: Response){
         const exchangesRepository = getRepository(Exchange);
-
-        const exchanges = exchangesRepository.find({
-            relations: ['stocks'],
-        }
-        );
+        const exchanges = await exchangesRepository.find({
+            relations: ['stock'],
+        });
 
         return response.status(201).json(exchanges)
     }
@@ -41,7 +39,7 @@ class ExchangesController{
 
         const exchange = await exchangesRepository.findOne({
             where: { id },
-            relations: ['stocks'],
+            relations: ['stock'],
         })
 
         return response.status(201).json(exchange)
