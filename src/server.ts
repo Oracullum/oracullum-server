@@ -3,6 +3,7 @@ import path from 'path';
 import cors from 'cors';
 
 import UsersController from './app/controllers/UsersController';
+import ExchangesController from './app/controllers/ExchangesController';
 
 import 'express-async-errors';
 
