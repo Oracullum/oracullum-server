@@ -11,7 +11,7 @@ class Exchange{
   date: Date;
 
   @Column()
-  operation: String;
+  operation: string;
 
   @Column('numeric', {
     precision: 9,

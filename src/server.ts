@@ -23,4 +23,8 @@ app.post('/stocks', StocksController.create);
 app.get('/stocks/:id', StocksController.show);
 app.get('/stocks', StocksController.index);
 
+app.post('/exchanges', ExchangesController.create);
+app.get('/exchanges/:id', ExchangesController.show)
+app.get('/exchanges', ExchangesController.index)
+
 app.listen(3333);
