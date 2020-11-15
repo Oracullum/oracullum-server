@@ -12,7 +12,7 @@ class StocksController{
     })
 
     if(verifyIfStockExists){
-      return response.status(401).json('Stock with code already exists!')
+      return response.status(401).json({ message : 'Stock with code already exists!' })
     }
 
     const stock = await stocksRepository.create(request.body)

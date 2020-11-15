@@ -14,7 +14,7 @@ class ExchangesController{
             where: { id: stock_id }
         })
         if (!verifyIfStockExists){
-            return response.status(403).json("This stock does not exist.")
+            return response.status(403).json({ message : "This stock does not exist." })
         }
         const exchange = await exchangesRepository.create({ date, operation, price, quantity, stock_id })
 
