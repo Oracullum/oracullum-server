@@ -5,7 +5,9 @@ import cors from 'cors';
 import UsersController from './app/controllers/UsersController';
 import ExchangesController from './app/controllers/ExchangesController';
 import StocksController from './app/controllers/StocksController';
+import SessionsController from './app/controllers/SessionsController';
 
+import ensureAuthenticated from './app/middlewares/ensureAuthenticated'
 
 import 'express-async-errors';
 
@@ -18,6 +20,9 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.post('/users', UsersController.create);
+app.post('/sessions', SessionsController.create);
+
+app.use(ensureAuthenticated)
 
 app.post('/stocks', StocksController.create);
 app.get('/stocks/:id', StocksController.show);
