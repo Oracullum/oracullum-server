@@ -41,7 +41,7 @@ após isso, rode o seguinte comando no terminal docker: docker start database
 #### Postgres sem docker
 Basta colocar as configurações de conexão acima e rodar o projeto
 
-## Como rodar o projeto:
+### Como rodar o projeto:
 
 1 - git clone https://github.com/Oracullum/oracullum-server
 
