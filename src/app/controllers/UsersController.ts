@@ -9,6 +9,15 @@ class UsersController{
     
     const usersRepository = getRepository(User)
     const password_hash = await hash(password, 8);
+
+    const verifyIfUserExists = await usersRepository.findOne({
+      where: { email },
+    })
+
+    if(verifyIfUserExists){
+      return response.status(403).json({ message : 'User with this E-Mail already exists!' })
+    }
+
     const user = await usersRepository.create({ name, email, password_hash })
 
     await usersRepository.save(user);
