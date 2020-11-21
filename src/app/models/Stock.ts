@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Exchange from "./Exchange";
+import User from "./User";
 
 @Entity('stocks')
 class Stock{
@@ -8,9 +9,20 @@ class Stock{
 
   @Column()
   code: string;
+
+  @Column()
+  exchange_id: string;
    
-  @OneToMany(() => Exchange, exchanges => exchanges.stock)
-  exchanges: Exchange[];
+  @OneToOne(() => Exchange)
+  @JoinColumn({ name: 'exchange_id' })
+  exchanges: Exchange;
+
+  @Column()
+  user_id: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;
