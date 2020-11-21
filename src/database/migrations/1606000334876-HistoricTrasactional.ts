@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateExchange1604542341779 implements MigrationInterface {
+export default class HistoricTrasactional1606000334876 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "exchanges",
+        name: "historic_transactionals",
         columns: [
           {
             name: "id",
@@ -19,16 +19,22 @@ export class CreateExchange1604542341779 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: "operation",
+            type: "varchar",
+            isNullable: false,
+          },
+          {
+            name: "price",
+            type: "numeric(9,2)",
+            isNullable: false,
+          },
+          {
             name: "quantity",
             type: "numeric",
             isNullable: false,
           },
           {
-            name: "operation",
-            type: "varchar",
-          },
-          {
-            name: "stock_id",
+            name: "exchange_id",
             type: "uuid",
             isNullable: false,
           },
@@ -45,9 +51,9 @@ export class CreateExchange1604542341779 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: "stock_FK",
-            columnNames: ["stock_id"],
-            referencedTableName: "stocks",
+            name: "Exchange_FK",
+            columnNames: ["exchange_id"],
+            referencedTableName: "exchanges",
             referencedColumnNames: ["id"],
             onUpdate: "CASCADE",
             onDelete: "CASCADE",
@@ -58,6 +64,6 @@ export class CreateExchange1604542341779 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("exchanges");
+    await queryRunner.dropTable("historic_transactionals");
   }
 }
