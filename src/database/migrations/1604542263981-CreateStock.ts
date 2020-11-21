@@ -19,6 +19,16 @@ export class CreateStock1604542263981 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: "exchange_id",
+            type: "uuid",
+            isNullable: false,
+          },
+          {
+            name: "user_id",
+            type: "uuid",
+            isNullable: false,
+          },
+          {
             name: "created_at",
             type: "timestamp with time zone",
             default: "now()",
@@ -27,6 +37,24 @@ export class CreateStock1604542263981 implements MigrationInterface {
             name: "updated_at",
             type: "timestamp with time zone",
             default: "now()",
+          },
+        ],
+        foreignKeys: [
+          {
+            name: 'Exchange_FK',
+            columnNames: ['exchange_id'],
+            referencedTableName: 'exchanges',
+            referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+          },
+          {
+            name: 'User_FK',
+            columnNames: ['user_id'],
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         ],
       })
