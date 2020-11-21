@@ -1,33 +1,24 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import Stock from "./Stock";
-
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import ExchangeEnterprise from "./ExchangeEnterprise";
+import HistoricTransactional from "./HistoricTransactional";
 
 @Entity('exchanges')
 class Exchange{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'date' })
-  date: Date;
-
-  @Column()
-  operation: string;
-
-  @Column('numeric', {
-    precision: 9,
-    scale: 2,
-  })
-  price: number;
-    
   @Column()
   quantity: number;
 
   @Column()
-  stock_id: string;
+  exchange_enterprise_id: string;
 
-  @ManyToOne(() => Stock)
-  @JoinColumn({ name: 'stock_id' })
-  stock: Stock;
+  @ManyToOne(() => ExchangeEnterprise)
+  @JoinColumn({ name: 'exchange_enterprise_id'})
+  exchange: ExchangeEnterprise;
+
+  @OneToMany(() => HistoricTransactional, historics => historics.exchange)
+  historic_transactional: HistoricTransactional[];
 
   @CreateDateColumn()
   created_at: Date;
