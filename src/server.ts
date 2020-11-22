@@ -7,6 +7,7 @@ import ExchangesController from './app/controllers/ExchangesController';
 import StocksController from './app/controllers/StocksController';
 import SessionsController from './app/controllers/SessionsController';
 import EnterpriseController from './app/controllers/EnterpriseController';
+import ExchangeEnterpriseController from './app/controllers/ExchangeEnterpriseController';
 
 import ensureAuthenticated from './app/middlewares/ensureAuthenticated'
 
@@ -36,5 +37,9 @@ app.get('/exchanges', ExchangesController.index)
 app.post('/enterprises', EnterpriseController.create);
 app.get('/enterprises/:id', EnterpriseController.show)
 app.get('/enterprises', EnterpriseController.index)
+
+app.post('/exchanges-enterprises', ExchangeEnterpriseController.create);
+app.get('/exchanges-enterprises/:id', ExchangeEnterpriseController.show)
+app.get('/exchanges-enterprises', ExchangeEnterpriseController.index)
 
 app.listen(3333);
