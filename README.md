@@ -38,7 +38,7 @@ docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 
 após isso, rode o seguinte comando no terminal docker: docker start database
 
-#### Postgres sem docker
+### Postgres sem docker
 Basta colocar as configurações de conexão acima e rodar o projeto
 
 ### Como rodar o projeto:
