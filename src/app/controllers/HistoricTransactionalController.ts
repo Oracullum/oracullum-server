@@ -15,17 +15,26 @@ class HistoricTransactionalController{
         const verifyIfStockExists = await stocksRepository.findOne({
             where: { exchange_id: exchange_id }
         })
+        
+        if(!verifyIfStockExists){
+            return response.status(404).json({ message : "This stock does not exist." })
+        }
 
+        
         const exchange = await exchangesRepository.findOne({
             where: { id: exchange_id }
         })
 
-        if(operation !== "buy" && operation !== "sell"){
-            return response.status(403).json({ message : "You need to set an operation 'buy' or 'sell'" })
+        if(!exchange){
+            return response.status(404).json({ message : "This exchange does not exist." })
         }
 
-        if (!verifyIfStockExists || (verifyIfStockExists.user_id !== request.user.id) || !exchange){
-            return response.status(403).json({ message : "This exchange does not exist." })
+        if(operation !== "buy" && operation !== "sell"){
+            return response.status(400).json({ message : "You need to set an operation 'buy' or 'sell'" })
+        }
+
+        if (verifyIfStockExists.user_id !== request.user.id){
+            return response.status(401).json({ message : "You can only create an transaction in your wallet" })
         }
 
         const createHistoricTransactional = new HistoricTransactional();
@@ -38,7 +47,7 @@ class HistoricTransactionalController{
         if(operation === "buy") {
             const historicTransactional = await historicTransactionalsRepository.create(createHistoricTransactional)
             await historicTransactionalsRepository.save(historicTransactional);
-            exchange.quantity = Number(exchange.quantity) + quantity as number;
+            exchange.quantity = Number(exchange.quantity) + Number(quantity);
             await exchangesRepository.save(exchange)
             return response.status(201).json(historicTransactional);
         }
@@ -50,7 +59,7 @@ class HistoricTransactionalController{
 
             const historicTransactional = await historicTransactionalsRepository.create(createHistoricTransactional)
             await historicTransactionalsRepository.save(historicTransactional);
-            exchange.quantity = Number(exchange.quantity) - quantity as number;
+            exchange.quantity = Number(exchange.quantity) - Number(quantity);
             await exchangesRepository.save(exchange)
             return response.status(201).json(historicTransactional);
 
