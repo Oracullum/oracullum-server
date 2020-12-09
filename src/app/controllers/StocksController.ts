@@ -51,7 +51,7 @@ class StocksController {
     const stocksRepository = getRepository(Stock);
 
     const stocks = await stocksRepository.find({
-      relations: ["exchanges"],
+      relations: ["exchanges", "exchanges.exchange", "exchanges.exchange.enterprise", "exchanges.historic_transactional"],
       where: {user_id: request.user.id},
     });
 
@@ -65,7 +65,7 @@ class StocksController {
 
     const stock = await stocksRepository.findOne({
       where: { id },
-      relations: ["exchanges"],
+      relations: ["exchanges", "exchanges.exchange", "exchanges.exchange.enterprise", "exchanges.historic_transactional"],
     });
 
     if(!stock || stock?.user_id !== request.user.id){
