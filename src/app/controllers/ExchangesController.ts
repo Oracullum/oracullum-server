@@ -30,7 +30,7 @@ class ExchangesController{
     public async index(request: Request, response: Response){
         const exchangesRepository = getRepository(Exchange);
         const exchanges = await exchangesRepository.find({
-            relations: ['exchange', 'historic_transactional'],
+            relations: ['exchange', 'exchange.enterprise', 'historic_transactional'],
         });
 
         return response.status(201).json(exchanges)
